@@ -18,6 +18,9 @@ KB-DTR combines expert knowledge with enterprise innovation data in four layers:
 | `kbdt.py` | The whole model: criteria, fuzzy AHP, fuzzy inference, all models, metrics, decision support, benchmark simulator, CLI |
 | `run_experiments.py` | Reproduces every table, figure and number in the paper |
 | `test_kbdt.py` | Tests for each guarantee the paper claims (weights, consistency, monotonicity, cap rule, probabilities) |
+| `tune.py` | Cross-validated hyperparameter search for KB-DTR |
+| `firms.csv` | **Example data: 300 simulated firms** for trying every command. Replace it with your real survey data. |
+| `firms_template.csv` | Empty file with the 12 required columns for your real data |
 | `results/` | Generated outputs: `table1_knowledge.csv`, `table2_performance.csv`, `fig1_framework.png`, `fig2_results.png`, `runs.csv`, `summary.json` |
 
 ## Quick start
@@ -30,6 +33,14 @@ python run_experiments.py         # full protocol: 20 repetitions (~10 min on 2 
 python run_experiments.py --from-runs   # rebuild tables and figures from results/runs.csv
 python -m pytest -q
 ```
+
+## Run everything in one command (e.g. on a RunPod CPU pod)
+
+```bash
+git clone https://github.com/saching1302/KB-Dtr.git && cd KB-Dtr && pip install -q -r requirements.txt && python -m pytest -q && python run_experiments.py --repeats 20 --jobs -1 && python tune.py && python kbdt.py evaluate firms.csv --label readiness --repeats 10 | tee results/evaluate_firms.txt && python kbdt.py assess firms.csv --out results/scored_firms.csv
+```
+
+> `firms.csv` in this repo is **simulated**. Use it to learn the workflow, but never report its numbers as real-firm evidence.
 
 ## Use it on your own firms
 
