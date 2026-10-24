@@ -1,5 +1,7 @@
 # KB-DTR: knowledge-based AI decision support for digital-transformation readiness
 
+[![tests](https://github.com/saching1302/KB-Dtr/actions/workflows/tests.yml/badge.svg)](https://github.com/saching1302/KB-Dtr/actions/workflows/tests.yml) ![license](https://img.shields.io/badge/license-MIT-blue)
+
 Code for the short communication **"A Knowledge-Based AI Decision-Support Model for Predicting Digital Transformation Readiness from Enterprise Innovation Data"** (prepared for *Knowledge-Based Systems*, Elsevier).
 
 KB-DTR combines expert knowledge with enterprise innovation data in four layers:
@@ -21,6 +23,7 @@ KB-DTR combines expert knowledge with enterprise innovation data in four layers:
 | `tune.py` | Cross-validated hyperparameter search for KB-DTR |
 | `firms.csv` | **Example data: 300 simulated firms** for trying every command. Replace it with your real survey data. |
 | `firms_template.csv` | Empty file with the 12 required columns for your real data |
+| `data/benchmark_firms.csv.gz` | **All 76,000 simulated firms used in the paper** (20 repetitions × train pool, test set and robustness training set) |
 | `results/` | Generated outputs: paper tables (`table1_knowledge.csv`, `table2_performance.csv`), figures (`fig1_framework.png`, `fig2_results.png`), raw runs (`runs.csv`, `summary.json`), and the example-data outputs `evaluate_firms.txt` (5-model repeated CV), `scored_firms.csv` (readiness and top lever for each firm) and `tune_firms.txt` (hyperparameter search) |
 
 ## Quick start
@@ -63,6 +66,24 @@ python kbdt.py evaluate firms.csv --label readiness        # repeated 5-fold CV 
 ```
 
 **Using your own expert panel.** Replace the pairwise judgements in `REFERENCE_JUDGEMENTS` in `kbdt.py`, using one dictionary per expert. The fuzzy AHP weights, consistency ratios, rule consequents and every model update automatically.
+
+## Benchmark data
+
+`data/benchmark_firms.csv.gz` contains every firm used in the experiments, so you can check the results without rerunning the simulator. Regenerate it with `python run_experiments.py --export-data`.
+
+| Column | Meaning |
+| --- | --- |
+| `repetition` | Repetition 0–19 (the random seed is 1000 + repetition for training data, 5000 + repetition for test data) |
+| `split` | `train_pool` (1,600 firms; the first *n* rows are the training set of size *n*), `test` (2,000 firms) or `robustness_train` (200 firms used in the knowledge-corruption experiment) |
+| `firm` | Row index within the split |
+| `DI` … `CP`, `size`, `sector` | Observed indicators and firm context (blank = missing, 5 %) |
+| `readiness` | True class: 0 = Low, 1 = Medium, 2 = High |
+
+```python
+import pandas as pd
+d = pd.read_csv("data/benchmark_firms.csv.gz")
+train = d[(d.repetition == 0) & (d.split == "train_pool")].head(200)   # the n = 200 training set of repetition 0
+```
 
 ## Results (controlled benchmark, 20 repetitions, 2,000 test firms)
 

@@ -3,6 +3,8 @@
   python run_experiments.py              # full protocol (20 repetitions, ~10 min on 2 cores)
   python run_experiments.py --repeats 3  # quick check
 
+  python run_experiments.py --export-data   # write every simulated firm to data/benchmark_firms.csv.gz
+
 Writes results/: table1_knowledge.csv, table2_performance.csv, runs.csv, summary.json,
 fig1_framework.png, fig2_results.png
 """
@@ -66,6 +68,21 @@ def robustness_run(seed: int, know: K.Knowledge, n: int = 200) -> list[dict]:
             m = K.evaluate(MODELS[name][1](k, seed), Xtr, ytr, Xte, yte, mvr=False)
             rows.append({"experiment": "robustness", "seed": seed, "n_train": n, "rho": rho, "model": name, **m})
     return rows
+
+
+def export_data(repeats: int, path: Path) -> pd.DataFrame:
+    """Write every simulated firm used in the paper (all seeds and splits) to one CSV."""
+    parts = []
+    for s in range(repeats):
+        for split, n, seed in [("train_pool", max(SIZES), 1000 + s), ("test", N_TEST, 5000 + s),
+                               ("robustness_train", 200, 1000 + s)]:
+            X, y = K.simulate_enterprises(n, seed=seed)
+            parts.append(X.round(4).assign(readiness=y).assign(repetition=s, split=split, firm=np.arange(n)))
+    df = pd.concat(parts, ignore_index=True)
+    df = df[["repetition", "split", "firm", *K.CODES, "size", "sector", "readiness"]]
+    path.parent.mkdir(exist_ok=True)
+    df.to_csv(path, index=False, compression="gzip")
+    return df
 
 
 def holm(p: dict) -> dict:
@@ -196,7 +213,12 @@ def main():
     ap.add_argument("--repeats", type=int, default=20)
     ap.add_argument("--jobs", type=int, default=-1)
     ap.add_argument("--from-runs", action="store_true", help="rebuild tables/figures from results/runs.csv")
+    ap.add_argument("--export-data", action="store_true", help="write data/benchmark_firms.csv.gz and exit")
     a = ap.parse_args()
+    if a.export_data:
+        d = export_data(a.repeats, Path(__file__).with_name("data") / "benchmark_firms.csv.gz")
+        print(d.groupby("split").size().to_string(), f"\n{len(d):,} firms written to data/benchmark_firms.csv.gz")
+        return
     OUT.mkdir(exist_ok=True)
     know, t1, cr = K.elicit()
 

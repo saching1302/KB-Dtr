@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "KB-DTR: Knowledge-based AI decision support for predicting digital transformation readiness"
+authors:
+  - family-names: Gujjalwar
+    given-names: Sachin
+repository-code: "https://github.com/saching1302/KB-Dtr"
+license: MIT
+version: 1.0.0
+date-released: 2026-10-24
+keywords:
+  - digital transformation readiness
+  - knowledge-based systems
+  - fuzzy AHP
+  - fuzzy inference
+  - monotonic gradient boosting
+  - enterprise innovation data
