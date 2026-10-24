@@ -1,0 +1,10 @@
+Dimension,Code,Criterion,Indicator,"Fuzzy weight (l, m, u)",Crisp weight,Rank
+Technology,DI,Digital infrastructure,"Share of core processes on integrated digital systems (ERP, cloud, IoT)","(0.042, 0.123, 0.370)",0.126,4
+Technology,DA,Data and analytics capability,Extent of data-driven decision-making and analytics use,"(0.065, 0.190, 0.516)",0.185,2
+Technology,AA,AI and automation adoption,Share of business functions using AI or intelligent automation,"(0.020, 0.056, 0.175)",0.059,8
+Organization,RD,R&D intensity,R&D expenditure relative to turnover (normalised),"(0.021, 0.058, 0.179)",0.061,7
+Organization,IO,Innovation output,Share of turnover from new or improved products and processes,"(0.031, 0.090, 0.281)",0.094,5
+Organization,DS,Digital skills,Share of employees with ICT skills or recent digital training,"(0.052, 0.150, 0.410)",0.146,3
+Organization,TM,Top-management support,Leadership commitment to an explicit DT strategy,"(0.066, 0.195, 0.527)",0.188,1
+Environment,EC,Ecosystem collaboration,"Innovation co-operation with universities, start-ups and suppliers","(0.036, 0.085, 0.206)",0.085,6
+Environment,CP,Digital market pressure,Pressure from digital competitors and customer expectations,"(0.025, 0.053, 0.143)",0.057,9
