@@ -21,7 +21,7 @@ KB-DTR combines expert knowledge with enterprise innovation data in four layers:
 | `tune.py` | Cross-validated hyperparameter search for KB-DTR |
 | `firms.csv` | **Example data: 300 simulated firms** for trying every command. Replace it with your real survey data. |
 | `firms_template.csv` | Empty file with the 12 required columns for your real data |
-| `results/` | Generated outputs: `table1_knowledge.csv`, `table2_performance.csv`, `fig1_framework.png`, `fig2_results.png`, `runs.csv`, `summary.json` |
+| `results/` | Generated outputs: paper tables (`table1_knowledge.csv`, `table2_performance.csv`), figures (`fig1_framework.png`, `fig2_results.png`), raw runs (`runs.csv`, `summary.json`), and the example-data outputs `evaluate_firms.txt` (5-model repeated CV), `scored_firms.csv` (readiness and top lever for each firm) and `tune_firms.txt` (hyperparameter search) |
 
 ## Quick start
 

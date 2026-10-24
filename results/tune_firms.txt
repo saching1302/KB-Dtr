@@ -1,0 +1,13 @@
+ param_learning_rate  param_max_iter  mean_test_score  std_test_score
+                0.10             300           0.8603          0.0297
+                0.05             600           0.8603          0.0297
+                0.10             600           0.8603          0.0297
+                0.05             150           0.8563          0.0295
+                0.10             150           0.8558          0.0290
+                0.02             600           0.8521          0.0258
+                0.05             300           0.8510          0.0350
+                0.02             300           0.8505          0.0281
+                0.02             150           0.8453          0.0189
+
+Best: {'learning_rate': 0.05, 'max_iter': 600} macro-F1 = 0.8603
+Set these as defaults in KBDTR.__init__ (kbdt.py), then rerun run_experiments.py.

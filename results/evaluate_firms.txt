@@ -1,0 +1,8 @@
+                      macro_f1           qwk           auc           mvr       
+                          mean    std   mean    std   mean    std   mean    std
+model                                                                          
+FKRI (knowledge only)    0.818  0.040  0.852  0.030  0.949  0.016  0.000  0.000
+Logistic regression      0.815  0.045  0.854  0.036  0.958  0.015  0.000  0.000
+Random forest            0.773  0.050  0.809  0.044  0.926  0.019  0.124  0.017
+Ordinal GBM              0.774  0.054  0.809  0.052  0.924  0.021  0.125  0.022
+KB-DTR                   0.842  0.035  0.873  0.029  0.958  0.013  0.000  0.000
